@@ -1,7 +1,8 @@
+import me.omico.buildSrc.configureMavenLibraryPublish
+
 plugins {
     kotlin("jvm")
     kotlin("plugin.serialization")
-    `maven-publish`
 }
 
 java {
@@ -18,12 +19,7 @@ dependencies {
     compileOnly(retrofit2.retrofit)
 }
 
-publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            artifactId = "cloudflare-dns"
-            from(components["kotlin"])
-            artifact(tasks["sourcesJar"])
-        }
-    }
-}
+configureMavenLibraryPublish(
+    mavenPublicationName = "maven",
+    versionName = version.toString(),
+)
